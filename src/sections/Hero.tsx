@@ -1,4 +1,7 @@
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import {
+  DragControls,
+  PerspectiveCamera,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import HackerRoom from "../components/HackerRoom";
 import { Suspense } from "react";
@@ -40,10 +43,12 @@ const Hero = () => {
             </HeroCamera>
 
             <group>
-              <Robot
-                position={[isMobile ? 0 : -12, -10, 0]}
-                rotation={[0, 0.6, 0]}
-              />
+              <DragControls>
+                <Robot
+                  position={[isMobile ? 0 : -8, -10, 6]}
+                  rotation={[0, 0.6, 0]}
+                />
+              </DragControls>
               <ReactLogo
                 position={[isMobile ? 5 : 12, isMobile ? 6 : 8, 0]}
                 rotation={[0, -0.6, 0]}
@@ -57,7 +62,6 @@ const Hero = () => {
 
             <ambientLight intensity={1} />
             <directionalLight position={[10, 10, 10]} intensity={0.5} />
-            <OrbitControls enableZoom={false} />
           </Suspense>
         </Canvas>
       </div>
