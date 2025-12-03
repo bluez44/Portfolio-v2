@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useMediaQuery } from "react-responsive";
 
 const Contact = () => {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -63,15 +65,17 @@ const Contact = () => {
           alt="terminal"
           className="absolute inset-0 min-h-screen"
         />
-        <div className="contact-container">
-          <h3 className="head-text">Let's Talk</h3>
-          <p className="text-lg text-white-600 mt-3">
+        <div className="contact-container mt-20! md:mt-0! md:min-w-3xl!">
+          <h3 className="text-xl md:text-3xl text-center text-white-800">
+            Let's Talk
+          </h3>
+          <p className="text-lg text-white-600 text-center mt-3">
             Wanna build a new website? Just send me a message.
           </p>
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="mt-12 flex flex-col space-y-7"
+            className="mt-6 md:mt-12 flex flex-col space-y-3 md:space-y-7"
           >
             <label htmlFor="" className="space-y-3">
               <span className="field-label">Full Name</span>
@@ -81,7 +85,7 @@ const Contact = () => {
                 value={form.name}
                 onChange={handleChange}
                 required
-                className="field-input"
+                className="field-input text-sm! md:text-lg!"
                 placeholder="John Doe"
               />
             </label>
@@ -94,7 +98,7 @@ const Contact = () => {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="field-input"
+                className="field-input text-sm! md:text-lg!"
                 placeholder="example@gmail.com"
               />
             </label>
@@ -106,8 +110,8 @@ const Contact = () => {
                 value={form.message}
                 onChange={handleChange}
                 required
-                rows={5}
-                className="field-input"
+                rows={isMobile ? 3 : 5}
+                className="field-input text-sm! md:text-lg!"
                 placeholder="Hi, I want to build a website for my company. Can you help me with that?"
               />
             </label>
