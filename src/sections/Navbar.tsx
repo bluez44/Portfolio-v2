@@ -4,6 +4,23 @@ import { TfiClose } from "react-icons/tfi";
 import { navLinks } from "../constants";
 
 const NavItems = () => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    // scroll to (the position of the id element - 20px)
+    e.preventDefault();
+    const element = document.getElementById(href.substring(1));
+    const header = document.getElementById("header");
+    console.log(Object.keys(e));
+    if (element && header) {
+      window.scrollTo({
+        top: element.offsetTop - header?.clientHeight,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <ul className="flex sm:flex-row flex-col text-xl">
       {navLinks.map(({ id, name, href }) => (
@@ -11,7 +28,13 @@ const NavItems = () => {
           key={id}
           className="px-8 py-6 text-neutral-400 hover:bg-white/5 sm:hover:bg-inherit hover:text-white hover:cursor-pointer transition-colors duration-300"
         >
-          <a href={href} className="">
+          <a
+            href={href}
+            className=""
+            onClick={(e) => {
+              handleClick(e, href);
+            }}
+          >
             {name}
           </a>
         </li>
@@ -28,7 +51,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90" id="header">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center py-5 mx-auto c-space">
           <a

@@ -2,7 +2,7 @@ import { clientReviews } from "../constants";
 
 const Clients = () => {
   return (
-    <section className="c-space my-20">
+    <section className="c-space my-20" id="clients">
       <h3 className="head-text text-white-600">Hear from my client</h3>
 
       <div className="client-container">
