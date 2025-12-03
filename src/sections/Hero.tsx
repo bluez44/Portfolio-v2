@@ -40,12 +40,14 @@ const Hero = () => {
             </HeroCamera>
 
             <group>
-              <DragControls>
-                <Robot
-                  position={[isMobile ? 0 : -8, -10, 6]}
-                  rotation={[0, 0.6, 0]}
-                />
-              </DragControls>
+              {!isMobile && (
+                <DragControls>
+                  <Robot
+                    position={[isMobile ? 0 : -8, -10, 6]}
+                    rotation={[0, 0.6, 0]}
+                  />
+                </DragControls>
+              )}
               <ReactLogo
                 position={[isMobile ? 5 : 12, isMobile ? 6 : 8, 0]}
                 rotation={[0, -0.6, 0]}
