@@ -5,9 +5,11 @@ import { Canvas } from "@react-three/fiber";
 import { Center, OrbitControls } from "@react-three/drei";
 import CanvasLoader from "../components/CanvasLoader";
 import DemoComputer from "../components/DemoComputer";
+import { useMediaQuery } from "react-responsive";
 
 const Projects = () => {
   const [seletedProjectIndex, setSelectedProjectIndex] = useState<number>(0);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const currentProject: Project = myProjects[seletedProjectIndex];
 
@@ -104,20 +106,32 @@ const Projects = () => {
           </div>
         </div>
 
-        <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-          <Canvas className="w-full h-full">
-            <ambientLight intensity={Math.PI} />
-            <directionalLight position={[10, 10, 5]} />
-            <Center>
-              <Suspense fallback={<CanvasLoader />}>
-                <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                  <DemoComputer textureStr={currentProject.texture} />
-                </group>
-              </Suspense>
-            </Center>
-            <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2} />
-          </Canvas>
-        </div>
+        {isMobile ? (
+          <div>
+            <p className="text-white text-center">
+              Use desktop device to view project demo
+            </p>
+          </div>
+        ) : (
+          <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
+            <Canvas className="w-full h-full">
+              <ambientLight intensity={Math.PI} />
+              <directionalLight position={[10, 10, 5]} />
+              <Center>
+                <Suspense fallback={<CanvasLoader />}>
+                  <group
+                    scale={2}
+                    position={[0, -3, 0]}
+                    rotation={[0, -0.1, 0]}
+                  >
+                    <DemoComputer textureStr={currentProject.texture} />
+                  </group>
+                </Suspense>
+              </Center>
+              <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2} />
+            </Canvas>
+          </div>
+        )}
       </div>
     </section>
   );

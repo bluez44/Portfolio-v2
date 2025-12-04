@@ -4,30 +4,38 @@ import { OrbitControls } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import CanvasLoader from "../components/CanvasLoader";
 import Developer from "../components/Developer";
+import { useMediaQuery } from "react-responsive";
 
 const Experience = () => {
   const [animationName, setAnimationName] = useState<string>("idle");
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   return (
     <section className="c-space my-20" id="experience">
       <div className="w-full text-white-600">
         <h3 className="head-text">My Work Experience</h3>
         <div className="work-container">
-          <div className="work-canvas">
-            <Canvas>
-              <ambientLight intensity={7} />
-              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-              <directionalLight position={[10, 10, 10]} intensity={1} />
-              <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-              <Suspense fallback={<CanvasLoader />}>
-                <Developer
-                  position={[0, -3, 0]}
-                  scale={3}
-                  animationName={animationName}
-                />
-              </Suspense>
-            </Canvas>
-          </div>
+          {isMobile ? (
+            <div>
+              <p className="text-white text-center">Use desktop to view more</p>
+            </div>
+          ) : (
+            <div className="work-canvas">
+              <Canvas>
+                <ambientLight intensity={7} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                <directionalLight position={[10, 10, 10]} intensity={1} />
+                <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
+                <Suspense fallback={<CanvasLoader />}>
+                  <Developer
+                    position={[0, -3, 0]}
+                    scale={3}
+                    animationName={animationName}
+                  />
+                </Suspense>
+              </Canvas>
+            </div>
+          )}
           <div className="work-content">
             <div className="sm:py-10 py-5 sm:px-5 px-2.5">
               {workExperiences.map(
